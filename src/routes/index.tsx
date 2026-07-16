@@ -822,6 +822,162 @@ function Footer() {
   );
 }
 
+/* ---------- Contact ---------- */
+
+function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", store: "", message: "" });
+  const [sent, setSent] = useState(false);
+
+  const WHATSAPP_NUMBER = "917204343440"; // +91 India
+  const EMAIL_TO = "dildileep.01@gmail.com";
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const text =
+      `New VasaviStores enquiry\n\n` +
+      `Name: ${form.name}\n` +
+      `Email: ${form.email}\n` +
+      `Store: ${form.store || "—"}\n\n` +
+      `Message:\n${form.message}`;
+
+    // Primary: WhatsApp click-to-chat (opens WhatsApp app / web)
+    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(waUrl, "_blank", "noopener,noreferrer");
+
+    // Fallback: mailto with the same message
+    const subject = `New VasaviStores enquiry from ${form.name || "website"}`;
+    const mailUrl = `mailto:${EMAIL_TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+    // Slight delay so WhatsApp gets focus first, then mail client
+    setTimeout(() => {
+      window.location.href = mailUrl;
+    }, 400);
+
+    setSent(true);
+  }
+
+  return (
+    <section id="contact" className="relative py-32 px-6">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-14">
+          <SectionLabel>Contact</SectionLabel>
+          <h2 className="text-4xl md:text-5xl font-bold font-display mt-4 text-gradient">
+            Talk to a human (and our AI)
+          </h2>
+          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+            Send us a message — it lands instantly on WhatsApp and email. We usually reply within a few hours.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-5 gap-8">
+          {/* Info panel */}
+          <div className="md:col-span-2 space-y-4">
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass rounded-2xl p-5 flex items-center gap-4 hover:bg-white/[0.06] transition"
+            >
+              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-green-400/20 to-emerald-500/20 flex items-center justify-center">
+                <MessageCircle className="h-5 w-5 text-green-400" />
+              </div>
+              <div>
+                <div className="text-sm text-muted-foreground">WhatsApp</div>
+                <div className="font-medium">+91 72043 43440</div>
+              </div>
+            </a>
+
+            <a
+              href={`mailto:${EMAIL_TO}`}
+              className="glass rounded-2xl p-5 flex items-center gap-4 hover:bg-white/[0.06] transition"
+            >
+              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-primary/30 to-purple-500/30 flex items-center justify-center">
+                <Mail className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <div className="text-sm text-muted-foreground">Email</div>
+                <div className="font-medium">{EMAIL_TO}</div>
+              </div>
+            </a>
+
+            <div className="glass rounded-2xl p-5 flex items-center gap-4">
+              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-purple-500/30 to-primary/30 flex items-center justify-center">
+                <Phone className="h-5 w-5 text-purple-300" />
+              </div>
+              <div>
+                <div className="text-sm text-muted-foreground">Response time</div>
+                <div className="font-medium">Under 4 hours, 7 days a week</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Form */}
+          <form
+            onSubmit={handleSubmit}
+            className="md:col-span-3 glass-strong rounded-3xl p-6 md:p-8 space-y-4"
+          >
+            <div className="grid sm:grid-cols-2 gap-4">
+              <label className="block">
+                <span className="text-sm text-muted-foreground">Your name</span>
+                <input
+                  required
+                  value={form.name}
+                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  className="mt-1 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-primary/60 focus:bg-white/[0.07] transition"
+                  placeholder="Priya Sharma"
+                />
+              </label>
+              <label className="block">
+                <span className="text-sm text-muted-foreground">Email</span>
+                <input
+                  required
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="mt-1 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-primary/60 focus:bg-white/[0.07] transition"
+                  placeholder="you@store.com"
+                />
+              </label>
+            </div>
+
+            <label className="block">
+              <span className="text-sm text-muted-foreground">Store / website (optional)</span>
+              <input
+                value={form.store}
+                onChange={(e) => setForm({ ...form, store: e.target.value })}
+                className="mt-1 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-primary/60 focus:bg-white/[0.07] transition"
+                placeholder="mystore.com"
+              />
+            </label>
+
+            <label className="block">
+              <span className="text-sm text-muted-foreground">How can our AI employee help?</span>
+              <textarea
+                required
+                rows={5}
+                value={form.message}
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                className="mt-1 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-primary/60 focus:bg-white/[0.07] transition resize-none"
+                placeholder="I run a fashion store with 500 SKUs and want to automate listings, SEO and WhatsApp support…"
+              />
+            </label>
+
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+              <p className="text-xs text-muted-foreground">
+                Submitting opens WhatsApp with your message pre-filled, and emails us a copy.
+              </p>
+              <button type="submit" className="btn-primary inline-flex items-center gap-2 px-6 py-3">
+                <Send className="h-4 w-4" />
+                {sent ? "Sent — thank you!" : "Send message"}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- Page ---------- */
 
 function Landing() {
@@ -838,6 +994,7 @@ function Landing() {
         <HowItWorks />
         <Testimonials />
         <Pricing />
+        <Contact />
         <CTA />
       </main>
       <Footer />
