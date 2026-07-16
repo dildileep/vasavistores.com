@@ -84,14 +84,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "VasaviStores is an AI-first eCommerce platform. Your first AI employee uploads products, writes descriptions, optimizes SEO, recovers carts and grows your store 24×7.",
       },
       { name: "author", content: "VasaviStores" },
-      { property: "og:title", content: "VasaviStores — Your First AI Employee" },
+      { property: "og:title", content: "VasaviStores — Your First AI Employee for Your Online Store" },
       {
         property: "og:description",
         content:
-          "An AI worker that runs your online store — from product uploads to SEO, WhatsApp, analytics and customer support.",
+          "VasaviStores is an AI-first eCommerce platform. Your first AI employee uploads products, writes descriptions, optimizes SEO, recovers carts and grows your store 24×7.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "VasaviStores — Your First AI Employee for Your Online Store" },
+      { name: "twitter:description", content: "VasaviStores is an AI-first eCommerce platform. Your first AI employee uploads products, writes descriptions, optimizes SEO, recovers carts and grows your store 24×7." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7c10e771-0717-46c5-a060-6278682829fe/id-preview-7bb41db4--42961afc-bd4b-44c0-bd96-0a17e3fe580c.lovable.app-1784219832112.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/7c10e771-0717-46c5-a060-6278682829fe/id-preview-7bb41db4--42961afc-bd4b-44c0-bd96-0a17e3fe580c.lovable.app-1784219832112.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

@@ -45,11 +45,11 @@ export const Route = createFileRoute("/")({
         content:
           "VasaviStores is an AI-first eCommerce platform. Your first AI employee uploads products, writes descriptions, optimizes SEO, recovers carts and grows your store 24×7.",
       },
-      { property: "og:title", content: "VasaviStores — Your First AI Employee" },
+      { property: "og:title", content: "VasaviStores — Your First AI Employee for Your Online Store" },
       {
         property: "og:description",
         content:
-          "An AI worker that runs your online store — from product uploads to SEO, WhatsApp, analytics and customer support.",
+          "VasaviStores is an AI-first eCommerce platform. Your first AI employee uploads products, writes descriptions, optimizes SEO, recovers carts and grows your store 24×7.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
