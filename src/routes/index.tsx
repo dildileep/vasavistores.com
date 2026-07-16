@@ -29,6 +29,9 @@ import {
   Megaphone,
   Brain,
   Wand2,
+  Send,
+  Mail,
+  Phone,
 } from "lucide-react";
 import aiEmployee from "@/assets/ai-employee.png";
 import { FloatingCard } from "@/components/landing/FloatingCard";
