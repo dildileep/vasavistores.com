@@ -91,7 +91,7 @@ function Nav() {
           <span className="font-display font-semibold tracking-tight">VasaviStores</span>
         </a>
         <div className="hidden md:flex items-center gap-1 text-sm text-muted-foreground ml-2">
-          {["Features", "Workflow", "Pricing", "Testimonials"].map((l) => (
+          {["Features", "Workflow", "Pricing", "Testimonials", "Contact"].map((l) => (
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
