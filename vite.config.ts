@@ -4,9 +4,11 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
 
 // Static SPA build for GitHub Pages.
-// Repo is served at https://dildileep.github.io/vasavistores.com/, so base must match.
-export default defineConfig({
-  base: "/vasavistores.com/",
+// Production build is served at https://dildileep.github.io/vasavistores.com/,
+// so the base must match — but only in production. In dev/preview the app
+// is served at "/" so we keep the base as "/" there.
+export default defineConfig(({ command }) => ({
+  base: command === "build" ? "/vasavistores.com/" : "/",
   plugins: [react(), tsconfigPaths(), tailwindcss()],
   build: {
     outDir: "dist",
@@ -17,4 +19,4 @@ export default defineConfig({
     port: 8080,
     strictPort: true,
   },
-});
+}));
