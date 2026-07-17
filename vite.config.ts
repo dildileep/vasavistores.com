@@ -7,16 +7,20 @@ import tailwindcss from "@tailwindcss/vite";
 // Production build is served at https://dildileep.github.io/vasavistores.com/,
 // so the base must match — but only in production. In dev/preview the app
 // is served at "/" so we keep the base as "/" there.
-export default defineConfig(({ command }) => ({
-  base: command === "build" ? "/vasavistores.com/" : "/",
-  plugins: [react(), tsconfigPaths(), tailwindcss()],
-  build: {
-    outDir: "dist",
-    emptyOutDir: true,
-  },
-  server: {
-    host: "::",
-    port: 8080,
-    strictPort: true,
-  },
-}));
+export default defineConfig(({ command }) => {
+  const isProductionBuild = command === "build";
+
+  return {
+    base: isProductionBuild ? "/vasavistores.com/" : "/",
+    plugins: [react(), tsconfigPaths(), tailwindcss()],
+    build: {
+      outDir: "dist",
+      emptyOutDir: true,
+    },
+    server: {
+      host: "::",
+      port: 8080,
+      strictPort: true,
+    },
+  };
+});
