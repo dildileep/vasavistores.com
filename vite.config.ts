@@ -19,4 +19,4 @@ export default defineConfig(({ command }) => ({
     port: 8080,
     strictPort: true,
   },
-});
+}));
