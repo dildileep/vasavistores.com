@@ -827,33 +827,40 @@ function Footer() {
 
 function Contact() {
   const [form, setForm] = useState({ name: "", email: "", store: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   const WHATSAPP_NUMBER = "917204343440"; // +91 India
   const EMAIL_TO = "dildileep.01@gmail.com";
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const text =
-      `New VasaviStores enquiry\n\n` +
-      `Name: ${form.name}\n` +
-      `Email: ${form.email}\n` +
-      `Store: ${form.store || "—"}\n\n` +
-      `Message:\n${form.message}`;
-
-    // Primary: WhatsApp click-to-chat (opens WhatsApp app / web)
-    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-    window.open(waUrl, "_blank", "noopener,noreferrer");
-
-    // Fallback: mailto with the same message
-    const subject = `New VasaviStores enquiry from ${form.name || "website"}`;
-    const mailUrl = `mailto:${EMAIL_TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
-    // Slight delay so WhatsApp gets focus first, then mail client
-    setTimeout(() => {
-      window.location.href = mailUrl;
-    }, 400);
-
-    setSent(true);
+    setStatus("sending");
+    setErrorMsg("");
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${EMAIL_TO}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          _subject: `New VasaviStores enquiry from ${form.name || "website"}`,
+          _template: "table",
+          _captcha: "false",
+          name: form.name,
+          email: form.email,
+          store: form.store || "—",
+          message: form.message,
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || (data && data.success === "false")) {
+        throw new Error(data?.message || "Failed to send");
+      }
+      setStatus("sent");
+      setForm({ name: "", email: "", store: "", message: "" });
+    } catch (err: any) {
+      setStatus("error");
+      setErrorMsg(err?.message || "Something went wrong. Please try again.");
+    }
   }
 
   return (
@@ -965,11 +972,23 @@ function Contact() {
 
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
               <p className="text-xs text-muted-foreground">
-                Submitting opens WhatsApp with your message pre-filled, and emails us a copy.
+                {status === "error"
+                  ? errorMsg
+                  : status === "sent"
+                  ? "Thanks! Your message was delivered to our inbox."
+                  : "Your message is emailed directly to our team — we reply within a few hours."}
               </p>
-              <button type="submit" className="btn-primary inline-flex items-center gap-2 px-6 py-3">
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="btn-primary inline-flex items-center gap-2 px-6 py-3 disabled:opacity-60"
+              >
                 <Send className="h-4 w-4" />
-                {sent ? "Sent — thank you!" : "Send message"}
+                {status === "sending"
+                  ? "Sending…"
+                  : status === "sent"
+                  ? "Sent — thank you!"
+                  : "Send message"}
               </button>
             </div>
           </form>
