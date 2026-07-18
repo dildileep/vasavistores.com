@@ -39,17 +39,17 @@ import { FloatingCard } from "@/components/landing/FloatingCard";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "VasaviStores — Your First AI Employee for Your Online Store" },
+      { title: "VasaviStores — First AI Employee for Commerce" },
       {
         name: "description",
         content:
-          "VasaviStores is an AI-first eCommerce platform. Your first AI employee uploads products, writes descriptions, optimizes SEO, recovers carts and grows your store 24×7.",
+          "Build and run an AI-powered VasaviStores storefront with automated listings, SEO, support, WhatsApp follow-ups and growth insights.",
       },
-      { property: "og:title", content: "VasaviStores — Your First AI Employee for Your Online Store" },
+      { property: "og:title", content: "VasaviStores — First AI Employee for Commerce" },
       {
         property: "og:description",
         content:
-          "VasaviStores is an AI-first eCommerce platform. Your first AI employee uploads products, writes descriptions, optimizes SEO, recovers carts and grows your store 24×7.",
+          "Build and run an AI-powered VasaviStores storefront with automated listings, SEO, support, WhatsApp follow-ups and growth insights.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -125,7 +125,7 @@ function Hero() {
       <div className="mx-auto max-w-7xl px-6 grid lg:grid-cols-[1.05fr_1fr] gap-12 items-center">
         <div>
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-            <SectionLabel>Introducing VasaviStores AI</SectionLabel>
+            <SectionLabel>VasaviStores AI Commerce</SectionLabel>
           </motion.div>
 
           <motion.h1
@@ -134,9 +134,9 @@ function Hero() {
             transition={{ delay: 0.1, duration: 0.8 }}
             className="mt-6 text-5xl md:text-7xl font-semibold text-gradient leading-[1.02]"
           >
-            Meet Your First
+            VasaviStores
             <br />
-            <span className="text-gradient-brand">AI Employee.</span>
+            <span className="text-gradient-brand">Your First AI Employee.</span>
           </motion.h1>
 
           <motion.p
@@ -145,9 +145,9 @@ function Hero() {
             transition={{ delay: 0.2, duration: 0.8 }}
             className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed"
           >
-            An AI worker that uploads products, writes descriptions, optimizes SEO, tracks visitors,
-            recovers abandoned carts, answers customers and helps grow your online store —
-            automatically.
+            Launch your own AI-powered eCommerce website where one intelligent employee creates
+            listings, handles SEO, follows up on WhatsApp, supports customers and turns store data
+            into growth actions.
           </motion.p>
 
           <motion.div
@@ -179,7 +179,7 @@ function Hero() {
                 />
               ))}
             </div>
-            <span>Trusted by 3,400+ merchants worldwide</span>
+            <span>Built for independent brands that want their own AI-first commerce engine</span>
           </div>
         </div>
 
@@ -215,7 +215,7 @@ function Hero() {
       {/* Logo strip */}
       <div className="mt-20 mx-auto max-w-5xl px-6">
         <p className="text-center text-xs uppercase tracking-widest text-muted-foreground/70">
-          Powering stores that ship with
+          Powering AI-first commerce teams built on
         </p>
         <div className="mt-6 grid grid-cols-2 md:grid-cols-6 gap-6 items-center opacity-60">
           {["Nova", "Kairo", "Lumen", "Arcadia", "Vertex", "Halo"].map((n) => (
@@ -232,14 +232,14 @@ function Hero() {
 /* ---------- Problem ---------- */
 
 const problems = [
-  { icon: Upload, label: "Uploading products" },
-  { icon: PenLine, label: "Writing descriptions" },
-  { icon: Search, label: "SEO" },
-  { icon: Headphones, label: "Customer support" },
-  { icon: Megaphone, label: "Marketing" },
-  { icon: Boxes, label: "Inventory" },
-  { icon: BarChart3, label: "Analytics" },
-  { icon: ShoppingCart, label: "Order management" },
+  { icon: Upload, label: "Creating catalogues" },
+  { icon: PenLine, label: "Writing product pages" },
+  { icon: Search, label: "Ranking on search" },
+  { icon: Headphones, label: "Serving customers" },
+  { icon: Megaphone, label: "Running campaigns" },
+  { icon: Boxes, label: "Managing inventory" },
+  { icon: BarChart3, label: "Reading analytics" },
+  { icon: ShoppingCart, label: "Converting orders" },
 ];
 
 function Problem() {
@@ -249,10 +249,11 @@ function Problem() {
         <div className="max-w-3xl">
           <SectionLabel>The Problem</SectionLabel>
           <h2 className="mt-5 text-4xl md:text-5xl font-semibold text-gradient">
-            Running an online store shouldn't feel like five full-time jobs.
+            Owning an eCommerce brand shouldn't mean stitching together ten different tools.
           </h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            Every day, merchants juggle a dozen tools — and burn out before they scale.
+            VasaviStores brings catalogue, storefront, automation and intelligence into one AI-first
+            commerce system built around your brand.
           </p>
         </div>
 
@@ -282,13 +283,13 @@ function Problem() {
 /* ---------- Solution / AI flow ---------- */
 
 const flow = [
-  { icon: Upload, label: "Upload one image" },
-  { icon: Wand2, label: "Remove background" },
-  { icon: PenLine, label: "Write title" },
-  { icon: Brain, label: "Generate description" },
-  { icon: Search, label: "Suggest SEO" },
-  { icon: TrendingUp, label: "Suggest pricing" },
-  { icon: CheckCircle2, label: "Publish" },
+  { icon: Upload, label: "Add product image" },
+  { icon: Wand2, label: "Clean visual" },
+  { icon: PenLine, label: "Create product page" },
+  { icon: Brain, label: "Write brand copy" },
+  { icon: Search, label: "Optimize for Google" },
+  { icon: TrendingUp, label: "Recommend offer" },
+  { icon: CheckCircle2, label: "Publish to your site" },
 ];
 
 function Solution() {
@@ -303,7 +304,7 @@ function Solution() {
             <span className="text-gradient-brand">Unlimited possibilities.</span>
           </h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            Upload one photo. Watch a full product listing come to life — in seconds.
+            Add one product photo. VasaviStores turns it into a ready-to-sell page on your own site.
           </p>
         </div>
 
@@ -341,16 +342,16 @@ function Solution() {
 /* ---------- Features ---------- */
 
 const features = [
-  { icon: Upload, title: "AI Product Upload", desc: "Drop a photo, get a full product — categorized, tagged and priced." },
-  { icon: PenLine, title: "AI Content Writer", desc: "Compelling titles and descriptions that sound like your brand." },
-  { icon: Search, title: "AI SEO Generator", desc: "Meta, schema and keywords that actually rank on Google." },
+  { icon: Upload, title: "AI Catalogue Builder", desc: "Drop a photo and generate a complete product page with category, tags and offer." },
+  { icon: PenLine, title: "AI Brand Writer", desc: "Product copy, FAQs and landing content that sound like your business." },
+  { icon: Search, title: "AI SEO Engine", desc: "Metadata, schema and keyword structure prepared for Google discovery." },
   { icon: Eye, title: "Visitor Intelligence", desc: "See who's browsing, where they came from, and what they want." },
   { icon: ShoppingCart, title: "Abandoned Cart Recovery", desc: "Automatic nudges that bring shoppers back to checkout." },
   { icon: MessageCircle, title: "WhatsApp Automation", desc: "Order updates and support flows on the app your customers use." },
-  { icon: Headphones, title: "AI Customer Support", desc: "24×7 human-like replies trained on your products and policies." },
-  { icon: BarChart3, title: "Smart Analytics", desc: "Plain-English reports that tell you what to do next." },
-  { icon: Megaphone, title: "Marketing Automation", desc: "Emails, campaigns and offers that adapt in real time." },
-  { icon: Brain, title: "AI Business Insights", desc: "Weekly strategy — like a CMO who never sleeps." },
+  { icon: Headphones, title: "AI Customer Support", desc: "24×7 replies trained on your catalogue, delivery rules and policies." },
+  { icon: BarChart3, title: "Smart Store Analytics", desc: "Plain-English reports that explain what is working and what to change." },
+  { icon: Megaphone, title: "Marketing Automation", desc: "Offers, campaigns and follow-ups that adapt to visitor behaviour." },
+  { icon: Brain, title: "AI Business Insights", desc: "Weekly strategy for products, pricing and conversion — built into your store." },
 ];
 
 function Features() {
@@ -471,18 +472,18 @@ function Workflow() {
 
 function Comparison() {
   const traditional = [
-    "Manually list every product",
-    "Write descriptions by hand",
-    "Chase abandoned carts alone",
-    "Answer every customer message",
-    "Guess what's working",
+    "Rent a generic template",
+    "Install separate apps for every task",
+    "Manually build every product page",
+    "Follow up with customers one by one",
+    "Guess which products will grow",
   ];
   const vasavi = [
-    "AI lists in seconds",
-    "AI writes on-brand copy",
-    "AI recovers carts on WhatsApp",
-    "AI replies 24×7",
-    "AI tells you what to do next",
+    "Own an AI-first storefront",
+    "Catalogue, SEO, support and growth in one system",
+    "AI creates complete pages in seconds",
+    "WhatsApp follow-ups run automatically",
+    "AI recommends the next growth move",
   ];
   return (
     <section className="relative py-32 px-6">
@@ -490,14 +491,14 @@ function Comparison() {
         <div className="text-center max-w-3xl mx-auto">
           <SectionLabel>Old vs New</SectionLabel>
           <h2 className="mt-5 text-4xl md:text-5xl font-semibold text-gradient">
-            The difference is night and day.
+            Not a template marketplace. A commerce operator.
           </h2>
         </div>
 
         <div className="mt-14 grid md:grid-cols-2 gap-5">
           <div className="glass rounded-3xl p-8">
-            <div className="text-xs uppercase tracking-widest text-muted-foreground">Traditional Store</div>
-            <div className="mt-2 text-2xl font-semibold">You do everything.</div>
+            <div className="text-xs uppercase tracking-widest text-muted-foreground">Old eCommerce Stack</div>
+            <div className="mt-2 text-2xl font-semibold">Tools everywhere. Work still on you.</div>
             <ul className="mt-8 space-y-4">
               {traditional.map((t) => (
                 <li key={t} className="flex items-start gap-3 text-sm text-muted-foreground">
@@ -510,7 +511,7 @@ function Comparison() {
           <div className="glass-strong glow-ring rounded-3xl p-8 relative overflow-hidden">
             <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-brand-purple/30 blur-3xl" />
             <div className="text-xs uppercase tracking-widest text-brand-cyan relative">VasaviStores</div>
-            <div className="mt-2 text-2xl font-semibold relative">AI does everything.</div>
+            <div className="mt-2 text-2xl font-semibold relative">Your AI employee runs the engine.</div>
             <ul className="mt-8 space-y-4 relative">
               {vasavi.map((t) => (
                 <li key={t} className="flex items-start gap-3 text-sm">
@@ -529,11 +530,11 @@ function Comparison() {
 /* ---------- How It Works ---------- */
 
 const steps = [
-  { n: "01", title: "Connect your store", desc: "Shopify, WooCommerce or start fresh — one click." },
-  { n: "02", title: "Upload one product image", desc: "That's it. No forms, no fields." },
-  { n: "03", title: "AI creates complete listing", desc: "Title, description, SEO, price — instantly." },
-  { n: "04", title: "Publish instantly", desc: "Live on your store in seconds." },
-  { n: "05", title: "AI keeps working 24×7", desc: "Support, marketing, insights — always on." },
+  { n: "01", title: "Create your Vasavi storefront", desc: "Start with your brand, catalogue and selling style." },
+  { n: "02", title: "Upload one product image", desc: "The AI reads the product and prepares the page." },
+  { n: "03", title: "AI builds the sell-ready page", desc: "Copy, SEO, tags, offer and product story — instantly." },
+  { n: "04", title: "Publish to your own site", desc: "A polished product page goes live without manual setup." },
+  { n: "05", title: "AI keeps improving sales", desc: "Support, follow-ups, campaigns and insights stay always on." },
 ];
 
 function HowItWorks() {
@@ -571,19 +572,19 @@ function HowItWorks() {
 const testimonials = [
   {
     quote:
-      "Vasavi replaced three tools and half our ops team. Our first AI hire — and the best one.",
+      "VasaviStores gave us an eCommerce engine that thinks, writes and follows up. It feels like our first AI hire.",
     name: "Aarav Mehta",
     role: "Founder, Nova Apparel",
   },
   {
     quote:
-      "We list 200 products a week now. It used to take a month. This is the future of commerce.",
+      "Our catalogue now goes live the same day products arrive. The AI handles the work we used to delay.",
     name: "Priya Rangan",
     role: "CEO, Kairo Home",
   },
   {
     quote:
-      "The WhatsApp cart recovery alone pays for itself 40×. Every DTC brand needs this.",
+      "The WhatsApp follow-ups and AI product pages changed how we launch. This is not a store template — it is an operator.",
     name: "Daniel Cho",
     role: "Growth Lead, Lumen Skin",
   },
@@ -637,17 +638,17 @@ const plans = [
   {
     name: "Starter",
     price: "$29",
-    tag: "For new stores finding their feet",
-    features: ["100 AI product uploads", "AI writer & SEO", "WhatsApp basics", "Email support"],
+    tag: "For new brands launching their own store",
+    features: ["100 AI product pages", "AI writer & SEO", "WhatsApp basics", "Email support"],
     cta: "Start Free",
     highlight: false,
   },
   {
     name: "Growth",
     price: "$99",
-    tag: "For scaling brands",
+    tag: "For brands ready to grow faster",
     features: [
-      "1,000 AI uploads",
+      "1,000 AI product pages",
       "Cart recovery & automation",
       "Visitor intelligence",
       "AI customer support",
@@ -768,8 +769,8 @@ function Footer() {
             <span className="font-display font-semibold tracking-tight text-lg">VasaviStores</span>
           </div>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            Your first AI employee for your online store. Built for founders who want to move faster
-            than yesterday.
+            Your first AI employee for your own eCommerce website. Built for founders who want a
+            store that works while they sleep.
           </p>
           <div className="mt-6 flex items-center gap-3">
             {[Twitter, Github, Linkedin, Youtube].map((I, i) => (
@@ -813,8 +814,8 @@ function Footer() {
         <div className="flex items-center gap-4">
           <a href="#" className="hover:text-foreground transition">Privacy</a>
           <a href="#" className="hover:text-foreground transition">Terms</a>
-          <a href="mailto:hello@vasavistores.com" className="hover:text-foreground transition">
-            hello@vasavistores.com
+            <a href="mailto:dildileep.01@gmail.com" className="hover:text-foreground transition">
+              dildileep.01@gmail.com
           </a>
         </div>
       </div>
