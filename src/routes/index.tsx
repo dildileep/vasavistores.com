@@ -972,11 +972,23 @@ function Contact() {
 
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
               <p className="text-xs text-muted-foreground">
-                Submitting opens WhatsApp with your message pre-filled, and emails us a copy.
+                {status === "error"
+                  ? errorMsg
+                  : status === "sent"
+                  ? "Thanks! Your message was delivered to our inbox."
+                  : "Your message is emailed directly to our team — we reply within a few hours."}
               </p>
-              <button type="submit" className="btn-primary inline-flex items-center gap-2 px-6 py-3">
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="btn-primary inline-flex items-center gap-2 px-6 py-3 disabled:opacity-60"
+              >
                 <Send className="h-4 w-4" />
-                {sent ? "Sent — thank you!" : "Send message"}
+                {status === "sending"
+                  ? "Sending…"
+                  : status === "sent"
+                  ? "Sent — thank you!"
+                  : "Send message"}
               </button>
             </div>
           </form>
