@@ -870,7 +870,7 @@ function Contact() {
           {/* Info panel */}
           <div className="md:col-span-2 space-y-4">
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              href="https://wa.me/917204343440"
               target="_blank"
               rel="noopener noreferrer"
               className="glass rounded-2xl p-5 flex items-center gap-4 hover:bg-white/[0.06] transition"
@@ -885,7 +885,7 @@ function Contact() {
             </a>
 
             <a
-              href={`mailto:${EMAIL_TO}`}
+              href="mailto:dildileep.01@gmail.com"
               className="glass rounded-2xl p-5 flex items-center gap-4 hover:bg-white/[0.06] transition"
             >
               <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-primary/30 to-purple-500/30 flex items-center justify-center">
@@ -893,7 +893,7 @@ function Contact() {
               </div>
               <div>
                 <div className="text-sm text-muted-foreground">Email</div>
-                <div className="font-medium">{EMAIL_TO}</div>
+                <div className="font-medium">dildileep.01@gmail.com</div>
               </div>
             </a>
 
