@@ -1,5 +1,17 @@
-// Re-export the Landing page as the SPA root component.
-// The full landing implementation lives in ./routes/index.tsx (kept there
-// so existing edits/history continue to work). For the static GitHub Pages
-// build we don't use TanStack Router — we mount <Landing /> directly.
-export { default } from "./routes/index";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Landing from "./routes/index";
+import Login from "./pages/Login";
+import Admin from "./pages/Admin";
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="*" element={<Landing />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
