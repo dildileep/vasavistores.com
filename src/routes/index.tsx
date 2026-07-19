@@ -102,7 +102,7 @@ function Nav() {
           ))}
         </div>
         <div className="ml-auto flex items-center gap-2">
-          <a href="#pricing" className="hidden sm:inline text-sm text-muted-foreground hover:text-foreground px-3">
+          <a href="/login" className="hidden sm:inline text-sm text-muted-foreground hover:text-foreground px-3">
             Sign in
           </a>
           <a href="#cta" className="btn-primary text-sm font-medium rounded-full px-4 py-2">
