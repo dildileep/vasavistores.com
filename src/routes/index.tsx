@@ -830,31 +830,19 @@ function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const WHATSAPP_NUMBER = "917204343440"; // +91 India
-  const EMAIL_TO = "dildileep.01@gmail.com";
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
     setErrorMsg("");
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${EMAIL_TO}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          _subject: `New VasaviStores enquiry from ${form.name || "website"}`,
-          _template: "table",
-          _captcha: "false",
-          name: form.name,
-          email: form.email,
-          store: form.store || "—",
-          message: form.message,
-        }),
+      const { supabase } = await import("@/integrations/supabase/client");
+      const { error } = await supabase.from("contact_submissions").insert({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.store.trim() || null,
+        message: form.message.trim(),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || (data && data.success === "false")) {
-        throw new Error(data?.message || "Failed to send");
-      }
+      if (error) throw error;
       setStatus("sent");
       setForm({ name: "", email: "", store: "", message: "" });
     } catch (err: any) {
@@ -862,6 +850,7 @@ function Contact() {
       setErrorMsg(err?.message || "Something went wrong. Please try again.");
     }
   }
+
 
   return (
     <section id="contact" className="relative py-32 px-6">
