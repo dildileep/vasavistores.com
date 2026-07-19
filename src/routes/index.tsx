@@ -102,7 +102,7 @@ function Nav() {
           ))}
         </div>
         <div className="ml-auto flex items-center gap-2">
-          <a href="#pricing" className="hidden sm:inline text-sm text-muted-foreground hover:text-foreground px-3">
+          <a href="/login" className="hidden sm:inline text-sm text-muted-foreground hover:text-foreground px-3">
             Sign in
           </a>
           <a href="#cta" className="btn-primary text-sm font-medium rounded-full px-4 py-2">
@@ -830,31 +830,19 @@ function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const WHATSAPP_NUMBER = "917204343440"; // +91 India
-  const EMAIL_TO = "dildileep.01@gmail.com";
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
     setErrorMsg("");
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${EMAIL_TO}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          _subject: `New VasaviStores enquiry from ${form.name || "website"}`,
-          _template: "table",
-          _captcha: "false",
-          name: form.name,
-          email: form.email,
-          store: form.store || "—",
-          message: form.message,
-        }),
+      const { supabase } = await import("@/integrations/supabase/client");
+      const { error } = await supabase.from("contact_submissions").insert({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.store.trim() || null,
+        message: form.message.trim(),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || (data && data.success === "false")) {
-        throw new Error(data?.message || "Failed to send");
-      }
+      if (error) throw error;
       setStatus("sent");
       setForm({ name: "", email: "", store: "", message: "" });
     } catch (err: any) {
@@ -862,6 +850,7 @@ function Contact() {
       setErrorMsg(err?.message || "Something went wrong. Please try again.");
     }
   }
+
 
   return (
     <section id="contact" className="relative py-32 px-6">
@@ -881,7 +870,7 @@ function Contact() {
           {/* Info panel */}
           <div className="md:col-span-2 space-y-4">
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              href="https://wa.me/917204343440"
               target="_blank"
               rel="noopener noreferrer"
               className="glass rounded-2xl p-5 flex items-center gap-4 hover:bg-white/[0.06] transition"
@@ -896,7 +885,7 @@ function Contact() {
             </a>
 
             <a
-              href={`mailto:${EMAIL_TO}`}
+              href="mailto:dildileep.01@gmail.com"
               className="glass rounded-2xl p-5 flex items-center gap-4 hover:bg-white/[0.06] transition"
             >
               <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-primary/30 to-purple-500/30 flex items-center justify-center">
@@ -904,7 +893,7 @@ function Contact() {
               </div>
               <div>
                 <div className="text-sm text-muted-foreground">Email</div>
-                <div className="font-medium">{EMAIL_TO}</div>
+                <div className="font-medium">dildileep.01@gmail.com</div>
               </div>
             </a>
 
