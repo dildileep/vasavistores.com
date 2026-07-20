@@ -134,8 +134,7 @@ export default function Checkout() {
         is_default: true,
       });
 
-      const { data: orderNum } = await supabase.rpc("generate_order_number" as any).catch(() => ({ data: null } as any));
-      const orderNumber = orderNum ?? `VS${Date.now()}`;
+      const orderNumber = `VS${Date.now().toString().slice(-9)}${Math.floor(Math.random() * 1000)}`;
 
       // Create order (status=pending)
       const { data: order, error: orderErr } = await supabase
