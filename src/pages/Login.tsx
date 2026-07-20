@@ -18,7 +18,10 @@ export default function Login() {
   const [msg, setMsg] = useState<{ type: "error" | "info"; text: string } | null>(null);
 
   useEffect(() => {
-    if (!loading && user) navigate("/admin", { replace: true });
+    if (!loading && user) {
+      const params = new URLSearchParams(window.location.search);
+      navigate(params.get("redirect") || "/account", { replace: true });
+    }
   }, [user, loading, navigate]);
 
   async function handleSubmit(e: React.FormEvent) {
