@@ -35,6 +35,10 @@ import {
 } from "lucide-react";
 import aiEmployee from "@/assets/ai-employee.png";
 import { FloatingCard } from "@/components/landing/FloatingCard";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { formatINR, discountPercent } from "@/lib/format";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -91,6 +95,7 @@ function Nav() {
           <span className="font-display font-semibold tracking-tight">VasaviStores</span>
         </a>
         <div className="hidden md:flex items-center gap-1 text-sm text-muted-foreground ml-2">
+          <a href="/shop" className="px-3 py-1.5 rounded-full hover:text-foreground hover:bg-white/5 transition">Shop</a>
           {["Features", "Workflow", "Pricing", "Testimonials", "Contact"].map((l) => (
             <a
               key={l}
@@ -987,6 +992,109 @@ function Contact() {
   );
 }
 
+/* ---------- Featured Products (from Supabase) ---------- */
+
+type FeaturedProduct = {
+  id: string;
+  name: string;
+  slug: string;
+  tagline: string | null;
+  images: string[];
+  price_paise: number;
+  mrp_paise: number;
+  rating_avg: number;
+  rating_count: number;
+};
+
+function FeaturedProducts() {
+  const [items, setItems] = useState<FeaturedProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("products")
+        .select("id,name,slug,tagline,images,price_paise,mrp_paise,rating_avg,rating_count")
+        .eq("is_active", true)
+        .order("rating_count", { ascending: false })
+        .limit(6);
+      setItems((data ?? []) as FeaturedProduct[]);
+      setLoading(false);
+    })();
+  }, []);
+
+  return (
+    <section id="products" className="relative py-32 px-6">
+      <GradientOrb className="h-[420px] w-[420px] top-20 -right-20 bg-brand-blue/30" />
+      <div className="mx-auto max-w-6xl relative">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-2xl">
+            <SectionLabel>Shop</SectionLabel>
+            <h2 className="mt-5 text-4xl md:text-5xl font-semibold text-gradient">
+              Smart products from VasaviStores.
+            </h2>
+            <p className="mt-4 text-muted-foreground text-lg">
+              Premium, AI-powered tools for modern Indian businesses. Free shipping across India.
+            </p>
+          </div>
+          <Link to="/shop" className="btn-ghost rounded-full px-5 py-2.5 text-sm inline-flex items-center gap-2">
+            View all products <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {loading
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="glass rounded-3xl aspect-[4/5] animate-pulse" />
+              ))
+            : items.map((p) => {
+                const off = discountPercent(p.mrp_paise, p.price_paise);
+                return (
+                  <Link
+                    key={p.id}
+                    to={`/products/${p.slug}`}
+                    className="group glass glow-ring rounded-3xl overflow-hidden hover:-translate-y-1 transition"
+                  >
+                    <div className="relative aspect-square bg-white/5 overflow-hidden">
+                      {p.images?.[0] && (
+                        <img
+                          src={p.images[0]}
+                          alt={p.name}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      )}
+                      {off > 0 && (
+                        <div className="absolute top-3 left-3 text-[11px] font-semibold px-2 py-1 rounded-full bg-brand-purple/90 text-white">
+                          {off}% OFF
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-5">
+                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
+                        <span className="text-foreground font-medium">{p.rating_avg.toFixed(1)}</span>
+                        <span>({p.rating_count} reviews)</span>
+                      </div>
+                      <h3 className="mt-1 font-display font-semibold text-lg">{p.name}</h3>
+                      {p.tagline && <p className="text-xs text-muted-foreground">{p.tagline}</p>}
+                      <div className="mt-3 flex items-baseline gap-2">
+                        <span className="font-semibold text-lg">{formatINR(p.price_paise)}</span>
+                        {p.mrp_paise > p.price_paise && (
+                          <span className="text-xs text-muted-foreground line-through">
+                            {formatINR(p.mrp_paise)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- Page ---------- */
 
 function Landing() {
@@ -995,6 +1103,7 @@ function Landing() {
       <Nav />
       <main>
         <Hero />
+        <FeaturedProducts />
         <Problem />
         <Solution />
         <Features />
