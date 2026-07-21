@@ -96,7 +96,8 @@ function Nav() {
         </a>
         <div className="hidden md:flex items-center gap-1 text-sm text-muted-foreground ml-2">
           <a href="/shop" className="px-3 py-1.5 rounded-full hover:text-foreground hover:bg-white/5 transition">Shop</a>
-          {["Features", "Workflow", "Pricing", "Testimonials", "Contact"].map((l) => (
+          <a href="#products" className="px-3 py-1.5 rounded-full hover:text-foreground hover:bg-white/5 transition">Products</a>
+          {["Features", "Pricing", "Contact"].map((l) => (
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
@@ -107,13 +108,20 @@ function Nav() {
           ))}
         </div>
         <div className="ml-auto flex items-center gap-2">
+          <a
+            href="/shop"
+            className="md:hidden text-sm font-medium px-3 py-1.5 rounded-full hover:bg-white/5 transition inline-flex items-center gap-1"
+          >
+            <ShoppingCart className="h-4 w-4" /> Shop
+          </a>
           <a href="/login" className="hidden sm:inline text-sm text-muted-foreground hover:text-foreground px-3">
             Sign in
           </a>
-          <a href="#cta" className="btn-primary text-sm font-medium rounded-full px-4 py-2">
-            Start Free
+          <a href="/shop" className="btn-primary text-sm font-medium rounded-full px-4 py-2 inline-flex items-center gap-1.5">
+            <ShoppingCart className="h-4 w-4" /> Shop Now
           </a>
         </div>
+
       </nav>
     </header>
   );
