@@ -35,6 +35,10 @@ import {
 } from "lucide-react";
 import aiEmployee from "@/assets/ai-employee.png";
 import { FloatingCard } from "@/components/landing/FloatingCard";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { formatINR, discountPercent } from "@/lib/format";
 
 export const Route = createFileRoute("/")({
   head: () => ({
