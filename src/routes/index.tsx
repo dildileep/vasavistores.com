@@ -169,12 +169,13 @@ function Hero() {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="mt-8 flex flex-wrap gap-3"
           >
-            <a href="#cta" className="btn-primary rounded-full px-6 py-3 font-medium inline-flex items-center gap-2">
-              Start Free <ArrowRight className="h-4 w-4" />
+            <a href="/shop" className="btn-primary rounded-full px-6 py-3 font-medium inline-flex items-center gap-2">
+              <ShoppingCart className="h-4 w-4" /> Shop Now
             </a>
-            <a href="#cta" className="btn-ghost rounded-full px-6 py-3 font-medium">
-              Book Demo
+            <a href="#products" className="btn-ghost rounded-full px-6 py-3 font-medium inline-flex items-center gap-2">
+              View Products <ArrowRight className="h-4 w-4" />
             </a>
+
             <a
               href="#workflow"
               className="btn-ghost rounded-full px-6 py-3 font-medium inline-flex items-center gap-2"
