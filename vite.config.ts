@@ -15,9 +15,10 @@ export default defineConfig(({ command }) => {
       emptyOutDir: true,
     },
     server: {
-      host: "::",
-      port: 8080,
+      host: "0.0.0.0",
+      port: 5000,
       strictPort: true,
+      allowedHosts: true,
     },
   };
 });
