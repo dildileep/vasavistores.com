@@ -1,0 +1,375 @@
+You are a Senior Staff Software Engineer, Product Manager, UI/UX Designer, AI Architect, and E-commerce Platform Expert.
+
+We are building VasaviStores.com, an AI-first SaaS platform for D2C brands.
+
+Please improve the existing application with the following requirements.
+
+==================================================
+HOME PAGE FIXES
+==================================================
+
+1. The Shop icon is currently not visible in the navigation bar.
+- Fix the icon rendering.
+- Ensure it is visible in both Dark and Light themes.
+- Use a modern Lucide or Heroicons shopping icon.
+- Verify it is responsive across desktop, tablet, and mobile.
+
+2. Check all navigation icons.
+- Maintain consistent sizing.
+- Ensure proper alignment.
+- Improve hover and active states.
+
+==================================================
+ADMIN LOGIN
+==================================================
+
+Create a secure Admin Login.
+
+Temporary default credentials:
+
+Email:
+admin@vasavistores.com
+
+Password:
+Admin@123
+
+On first login:
+- Force password change.
+- Store passwords securely using hashing.
+- Protect all admin routes.
+- Add role-based authentication.
+
+Roles:
+- Super Admin
+- Store Owner
+- Store Manager
+- Marketing Manager
+- Support Agent
+
+==================================================
+ADMIN DASHBOARD
+==================================================
+
+Create a modern AI-powered Admin Dashboard.
+
+Dashboard Cards:
+- Today's Revenue
+- Total Orders
+- Pending Orders
+- Delivered Orders
+- Active Customers
+- Returning Customers
+- Conversion Rate
+- Average Order Value
+- Cart Abandonment
+- Total Products
+- Low Inventory
+- AI Tasks Completed
+
+==================================================
+ADMIN MODULES
+==================================================
+
+Dashboard
+
+Products
+- Add/Edit/Delete Products
+- Categories
+- Collections
+- Inventory
+- Variants
+- Bulk Upload
+- Product Images
+- Product SEO
+- Product Reviews
+
+Orders
+- View Orders
+- Process Orders
+- Refunds
+- Returns
+- Cancel Orders
+- Print Invoice
+- Shipping Labels
+
+Customers
+- Customer Profiles
+- Purchase History
+- Loyalty
+- Wishlist
+- Segmentation
+
+Payments
+- Razorpay Transactions
+- Refund Management
+- Payment Status
+
+Shipping
+- Shiprocket Integration
+- Courier Selection
+- Shipment Tracking
+- Delivery Status
+
+Marketing
+- Coupons
+- Referral Program
+- Email Campaigns
+- WhatsApp Campaigns
+- Push Notifications
+
+Content
+- Blog
+- Landing Pages
+- SEO Pages
+- FAQs
+
+AI Employees
+
+AI Product Employee
+- Generate Product Titles
+- Generate Descriptions
+- Generate SEO
+- Remove Background
+- Generate Product Images
+
+AI Marketing Employee
+- LinkedIn Posts
+- Instagram Posts
+- Facebook Posts
+- Blogs
+- Email Campaigns
+- Ad Copy
+
+AI Customer Support
+- FAQ Generator
+- Auto Reply
+- Refund Assistant
+- Order Status Assistant
+
+AI Sales Employee
+- Upsell Suggestions
+- Cross-sell
+- Bundle Recommendations
+- Abandoned Cart Recovery
+
+AI Analytics Employee
+- Daily Summary
+- Weekly Summary
+- Growth Suggestions
+- Revenue Forecast
+- Product Performance
+- Customer Insights
+
+==================================================
+AI COMMAND CENTER
+==================================================
+
+Create an AI chat panel where the admin can type commands such as:
+
+- Upload 50 products
+- Generate SEO for all products
+- Create a Diwali campaign
+- Show today's sales
+- Find low-performing products
+- Generate Instagram content
+- Recommend discounts
+
+==================================================
+HEATMAP ANALYTICS
+==================================================
+
+Create a Heatmap Dashboard.
+
+Track:
+
+Mouse Clicks
+
+Mouse Movement
+
+Scroll Depth
+
+Most Clicked Buttons
+
+Most Viewed Products
+
+Exit Pages
+
+Dead Clicks
+
+Rage Clicks
+
+Session Recordings
+
+Customer Journey
+
+Product Interest Heatmap
+
+Cart Heatmap
+
+Checkout Heatmap
+
+Search Heatmap
+
+Mobile Heatmap
+
+Desktop Heatmap
+
+Display heatmaps using color overlays.
+
+==================================================
+ADVANCED ANALYTICS
+==================================================
+
+Dashboard should include:
+
+Revenue Trend
+
+Orders Trend
+
+Visitors
+
+Sessions
+
+Bounce Rate
+
+Conversion Funnel
+
+Returning Customers
+
+Top Products
+
+Worst Products
+
+Product Performance
+
+Category Performance
+
+Traffic Sources
+
+Google Search
+
+Direct
+
+Social Media
+
+WhatsApp
+
+Referral
+
+Average Session Duration
+
+Customer Lifetime Value (CLV)
+
+Repeat Purchase Rate
+
+Cart Abandonment Rate
+
+Checkout Completion Rate
+
+AI Recommendation Score
+
+Predicted Revenue
+
+AI Alerts
+
+Inventory Forecast
+
+Demand Forecast
+
+Best Selling Time
+
+Best Performing Campaign
+
+SEO Score
+
+==================================================
+SEO ANALYTICS
+==================================================
+
+Track:
+
+Organic Traffic
+
+Top Ranking Pages
+
+Keyword Rankings
+
+CTR
+
+Core Web Vitals
+
+Lighthouse Score
+
+Meta Tags
+
+Broken Links
+
+Index Coverage
+
+Sitemap Status
+
+Schema Validation
+
+==================================================
+SECURITY
+==================================================
+
+Role-based Access
+
+Protected Routes
+
+Audit Logs
+
+Login History
+
+Failed Login Attempts
+
+Admin Activity Logs
+
+==================================================
+SETTINGS
+==================================================
+
+Store Settings
+
+Payment Settings
+
+Shipping Settings
+
+SEO Settings
+
+Email Settings
+
+WhatsApp Settings
+
+AI Settings
+
+API Keys
+
+User Management
+
+==================================================
+UI
+==================================================
+
+Dark Theme
+
+Glassmorphism
+
+Blue + Purple Accents
+
+Apple + Stripe + OpenAI Inspired
+
+Responsive
+
+Smooth Animations
+
+Fast Loading
+
+Premium SaaS Experience
+
+==================================================
+GOAL
+==================================================
+
+Transform VasaviStores into an AI-first Commerce Operating System where merchants can manage their entire business through dashboards, analytics, AI employees, and conversational AI.

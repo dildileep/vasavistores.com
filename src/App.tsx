@@ -23,6 +23,15 @@ import AdminOrders from "./pages/admin/AdminOrders";
 import AdminCustomers from "./pages/admin/AdminCustomers";
 import AdminCoupons from "./pages/admin/AdminCoupons";
 import AdminMessages from "./pages/admin/AdminMessages";
+import AdminAnalytics from "./pages/admin/AdminAnalytics";
+import AdminHeatmap from "./pages/admin/AdminHeatmap";
+import AdminAICenter from "./pages/admin/AdminAICenter";
+import AdminMarketing from "./pages/admin/AdminMarketing";
+import AdminPayments from "./pages/admin/AdminPayments";
+import AdminShipping from "./pages/admin/AdminShipping";
+import AdminContent from "./pages/admin/AdminContent";
+import AdminSecurity from "./pages/admin/AdminSecurity";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 export default function App() {
   return (
@@ -51,6 +60,15 @@ export default function App() {
               <Route path="customers" element={<AdminCustomers />} />
               <Route path="coupons" element={<AdminCoupons />} />
               <Route path="messages" element={<AdminMessages />} />
+              <Route path="analytics" element={<AdminAnalytics />} />
+              <Route path="heatmap" element={<AdminHeatmap />} />
+              <Route path="ai" element={<AdminAICenter />} />
+              <Route path="marketing" element={<AdminMarketing />} />
+              <Route path="payments" element={<AdminPayments />} />
+              <Route path="shipping" element={<AdminShipping />} />
+              <Route path="content" element={<AdminContent />} />
+              <Route path="security" element={<AdminSecurity />} />
+              <Route path="settings" element={<AdminSettings />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" replace />} />
