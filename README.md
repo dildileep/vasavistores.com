@@ -480,7 +480,7 @@ ON CONFLICT DO NOTHING;
 
 **Cause:** The Supabase RLS policy on `products` calls `has_role()` for anonymous users, but `anon` role has no `EXECUTE` permission on that function.
 
-**Fix:** Run the following SQL in the [Supabase SQL Editor](https://supabase.com/dashboard/project/hohfsfrqkvzxpsbacnzm/sql/new):
+**Fix:** Run the following SQL in the [Supabase SQL Editor](https://supabase.com/dashboard/project/hapgureirqjyqthlwfwr/sql/new):
 
 ```sql
 DROP POLICY IF EXISTS "public read active products" ON public.products;
