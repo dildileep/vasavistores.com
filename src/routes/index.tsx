@@ -43,20 +43,22 @@ import { formatINR, discountPercent } from "@/lib/format";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "VasaviStores — First AI Employee for Commerce" },
+      { title: "VasaviStores | AI Employee for Commerce & E-Commerce Automation" },
       {
         name: "description",
         content:
-          "Build and run an AI-powered VasaviStores storefront with automated listings, SEO, support, WhatsApp follow-ups and growth insights.",
+          "VasaviStores is your AI-powered e-commerce employee. Automate product cataloging, WhatsApp customer support, and SEO in one platform.",
       },
-      { property: "og:title", content: "VasaviStores — First AI Employee for Commerce" },
+      { property: "og:title", content: "VasaviStores | AI Employee for Commerce & E-Commerce Automation" },
       {
         property: "og:description",
         content:
-          "Build and run an AI-powered VasaviStores storefront with automated listings, SEO, support, WhatsApp follow-ups and growth insights.",
+          "VasaviStores is your AI-powered e-commerce employee. Automate product cataloging, WhatsApp customer support, and SEO in one platform.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "VasaviStores | AI Employee for Commerce & E-Commerce Automation" },
+      { name: "twitter:description", content: "Your AI-powered e-commerce employee. Automate product cataloging, WhatsApp support, and SEO in one platform." },
     ],
   }),
   component: Landing,
@@ -149,7 +151,7 @@ function Hero() {
           >
             VasaviStores
             <br />
-            <span className="text-gradient-brand">Your First AI Employee.</span>
+            <span className="text-gradient-brand">The First AI Employee for E-Commerce.</span>
           </motion.h1>
 
           <motion.p
@@ -783,8 +785,10 @@ function Footer() {
             <span className="font-display font-semibold tracking-tight text-lg">VasaviStores</span>
           </div>
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            Your first AI employee for your own eCommerce website. Built for founders who want a
-            store that works while they sleep.
+            The <strong className="text-foreground/80">VasaviStores AI platform</strong> is your
+            first AI employee for e-commerce. The <strong className="text-foreground/80">Vasavi
+            Stores AI</strong> engine automates cataloging, SEO, WhatsApp support and growth —
+            so your store works while you sleep.
           </p>
           <div className="mt-6 flex items-center gap-3">
             {[Twitter, Github, Linkedin, Youtube].map((I, i) => (
