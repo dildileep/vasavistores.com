@@ -43,3 +43,8 @@ VITE_SUPABASE_PROJECT_ID = "hapgureirqjyqthlwfwr"
 VITE_SUPABASE_URL = "https://hapgureirqjyqthlwfwr.supabase.co"
 SUPABASE_PUBLISHABLE_KEY = "sb_publishable_u5b2vdDe_Y5lUvUZkrtoGA_pK7xhkWf"
 VITE_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_u5b2vdDe_Y5lUvUZkrtoGA_pK7xhkWf"
+
+[deployment]
+deploymentTarget = "static"
+build = ["npm", "run", "build"]
+publicDir = "dist"
