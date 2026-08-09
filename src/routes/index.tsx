@@ -39,6 +39,8 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { formatINR, discountPercent } from "@/lib/format";
+import ProductCard from "@/components/shop/ProductCard";
+import WhatsAppButton from "@/components/shop/WhatsAppButton";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -1026,7 +1028,7 @@ function FeaturedProducts() {
     (async () => {
       const { data } = await supabase
         .from("products")
-        .select("id,name,slug,tagline,images,price_paise,mrp_paise,rating_avg,rating_count")
+        .select("id,name,slug,tagline,images,price_paise,mrp_paise,rating_avg,rating_count,status,short_description,cta_text")
         .eq("is_active", true)
         .order("rating_count", { ascending: false })
         .limit(6);
@@ -1059,49 +1061,8 @@ function FeaturedProducts() {
             ? Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="glass rounded-3xl aspect-[4/5] animate-pulse" />
               ))
-            : items.map((p) => {
-                const off = discountPercent(p.mrp_paise, p.price_paise);
-                return (
-                  <Link
-                    key={p.id}
-                    to={`/products/${p.slug}`}
-                    className="group glass glow-ring rounded-3xl overflow-hidden hover:-translate-y-1 transition"
-                  >
-                    <div className="relative aspect-square bg-white/5 overflow-hidden">
-                      {p.images?.[0] && (
-                        <img
-                          src={p.images[0]}
-                          alt={p.name}
-                          loading="lazy"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      )}
-                      {off > 0 && (
-                        <div className="absolute top-3 left-3 text-[11px] font-semibold px-2 py-1 rounded-full bg-brand-purple/90 text-white">
-                          {off}% OFF
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-5">
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                        <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                        <span className="text-foreground font-medium">{p.rating_avg.toFixed(1)}</span>
-                        <span>({p.rating_count} reviews)</span>
-                      </div>
-                      <h3 className="mt-1 font-display font-semibold text-lg">{p.name}</h3>
-                      {p.tagline && <p className="text-xs text-muted-foreground">{p.tagline}</p>}
-                      <div className="mt-3 flex items-baseline gap-2">
-                        <span className="font-semibold text-lg">{formatINR(p.price_paise)}</span>
-                        {p.mrp_paise > p.price_paise && (
-                          <span className="text-xs text-muted-foreground line-through">
-                            {formatINR(p.mrp_paise)}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+            : items.map((p) => <ProductCard key={p.id} p={p as any} />)}
+
         </div>
       </div>
     </section>

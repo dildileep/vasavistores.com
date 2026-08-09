@@ -182,6 +182,53 @@ export type Database = {
         }
         Relationships: []
       }
+      enquiries: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          product_id: string | null
+          product_name: string | null
+          status: Database["public"]["Enums"]["enquiry_status"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          product_id?: string | null
+          product_name?: string | null
+          status?: Database["public"]["Enums"]["enquiry_status"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          product_id?: string | null
+          product_name?: string | null
+          status?: Database["public"]["Enums"]["enquiry_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enquiries_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_items: {
         Row: {
           created_at: string
@@ -358,6 +405,7 @@ export type Database = {
           breadth_cm: number
           category_id: string | null
           created_at: string
+          cta_text: string
           currency: string
           faqs: Json
           features: Json
@@ -374,12 +422,14 @@ export type Database = {
           mrp_paise: number
           name: string
           price_paise: number
+          product_type: string | null
           rating_avg: number
           rating_count: number
           short_description: string | null
           sku: string | null
           slug: string
           specifications: Json
+          status: Database["public"]["Enums"]["product_status"]
           stock: number
           tagline: string | null
           tax_rate: number
@@ -391,6 +441,7 @@ export type Database = {
           breadth_cm?: number
           category_id?: string | null
           created_at?: string
+          cta_text?: string
           currency?: string
           faqs?: Json
           features?: Json
@@ -407,12 +458,14 @@ export type Database = {
           mrp_paise: number
           name: string
           price_paise: number
+          product_type?: string | null
           rating_avg?: number
           rating_count?: number
           short_description?: string | null
           sku?: string | null
           slug: string
           specifications?: Json
+          status?: Database["public"]["Enums"]["product_status"]
           stock?: number
           tagline?: string | null
           tax_rate?: number
@@ -424,6 +477,7 @@ export type Database = {
           breadth_cm?: number
           category_id?: string | null
           created_at?: string
+          cta_text?: string
           currency?: string
           faqs?: Json
           features?: Json
@@ -440,12 +494,14 @@ export type Database = {
           mrp_paise?: number
           name?: string
           price_paise?: number
+          product_type?: string | null
           rating_avg?: number
           rating_count?: number
           short_description?: string | null
           sku?: string | null
           slug?: string
           specifications?: Json
+          status?: Database["public"]["Enums"]["product_status"]
           stock?: number
           tagline?: string | null
           tax_rate?: number
@@ -660,8 +716,9 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "user"
+      app_role: "admin" | "user" | "seller"
       coupon_type: "percent" | "flat"
+      enquiry_status: "new" | "contacted" | "converted" | "closed"
       order_status:
         | "pending"
         | "paid"
@@ -677,6 +734,7 @@ export type Database = {
         | "captured"
         | "failed"
         | "refunded"
+      product_status: "active" | "coming_soon" | "in_progress" | "inactive"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -804,8 +862,9 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "user"],
+      app_role: ["admin", "user", "seller"],
       coupon_type: ["percent", "flat"],
+      enquiry_status: ["new", "contacted", "converted", "closed"],
       order_status: [
         "pending",
         "paid",
@@ -823,6 +882,7 @@ export const Constants = {
         "failed",
         "refunded",
       ],
+      product_status: ["active", "coming_soon", "in_progress", "inactive"],
     },
   },
 } as const

@@ -20,7 +20,7 @@ export default function Shop() {
       const [{ data: prods }, { data: cats }] = await Promise.all([
         supabase
           .from("products")
-          .select("id,name,slug,tagline,images,price_paise,mrp_paise,rating_avg,rating_count,category_id,created_at")
+          .select("id,name,slug,tagline,images,price_paise,mrp_paise,rating_avg,rating_count,status,short_description,cta_text,category_id,created_at")
           .eq("is_active", true),
         supabase.from("categories").select("id,name,slug").order("sort_order"),
       ]);
