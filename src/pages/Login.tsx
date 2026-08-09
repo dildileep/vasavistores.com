@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 type Mode = "signin" | "signup";
 
-export default function Login() {
+export default function Login({ admin = false }: { admin?: boolean }) {
   const navigate = useNavigate();
   const { user, loading } = useAuth();
   const [mode, setMode] = useState<Mode>("signin");
@@ -17,12 +17,27 @@ export default function Login() {
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ type: "error" | "info"; text: string } | null>(null);
 
+  const defaultDest = admin ? "/admin" : "/account";
+
   useEffect(() => {
     if (!loading && user) {
       const params = new URLSearchParams(window.location.search);
-      navigate(params.get("redirect") || "/account", { replace: true });
+      navigate(params.get("redirect") || defaultDest, { replace: true });
     }
-  }, [user, loading, navigate]);
+  }, [user, loading, navigate, defaultDest]);
+
+  async function handleForgot() {
+    if (!email) { setMsg({ type: "error", text: "Enter your email first, then click reset." }); return; }
+    setBusy(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setBusy(false);
+    setMsg(error
+      ? { type: "error", text: error.message }
+      : { type: "info", text: "Password reset link sent. Check your inbox." });
+  }
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -33,7 +48,7 @@ export default function Login() {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
+          options: { emailRedirectTo: window.location.origin },
         });
         if (error) throw error;
         setMsg({ type: "info", text: "Account created. You're being signed in…" });
@@ -53,7 +68,7 @@ export default function Login() {
     setMsg(null);
     try {
       const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin + "/admin",
+        redirect_uri: window.location.origin,
       });
       if (result.error) throw result.error;
     } catch (err: any) {
@@ -78,13 +93,16 @@ export default function Login() {
         </Link>
 
         <h1 className="text-2xl font-display font-semibold text-center">
-          {mode === "signin" ? "Welcome back" : "Create your account"}
+          {admin ? "Admin sign in" : mode === "signin" ? "Welcome back" : "Create your account"}
         </h1>
         <p className="text-sm text-muted-foreground text-center mt-1">
-          {mode === "signin"
-            ? "Sign in to access your dashboard."
-            : "Start running your AI-powered storefront."}
+          {admin
+            ? "Authorised administrators only."
+            : mode === "signin"
+              ? "Sign in to your VasaviStores account."
+              : "Create your VasaviStores account."}
         </p>
+
 
         <button
           onClick={handleGoogle}
@@ -159,16 +177,25 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="mt-5 text-center text-xs text-muted-foreground">
-          {mode === "signin" ? "New to VasaviStores?" : "Already have an account?"}{" "}
-          <button
-            onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-            className="text-foreground underline underline-offset-4"
-          >
-            {mode === "signin" ? "Create an account" : "Sign in"}
+        <p className="mt-4 text-center text-xs text-muted-foreground">
+          <button type="button" onClick={handleForgot} className="text-foreground underline underline-offset-4">
+            Forgot password?
           </button>
         </p>
+
+        {!admin && (
+          <p className="mt-3 text-center text-xs text-muted-foreground">
+            {mode === "signin" ? "New to VasaviStores?" : "Already have an account?"}{" "}
+            <button
+              onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+              className="text-foreground underline underline-offset-4"
+            >
+              {mode === "signin" ? "Create an account" : "Sign in"}
+            </button>
+          </p>
+        )}
       </motion.div>
     </div>
+
   );
 }

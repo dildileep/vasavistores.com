@@ -44,7 +44,7 @@ export default function AdminProducts() {
       <div className="flex items-center gap-3 flex-wrap">
         <h1 className="text-2xl md:text-3xl font-display font-semibold flex-1">Products</h1>
         <button
-          onClick={() => setEditing({ name: "", slug: "", price_paise: 49900, mrp_paise: 99900, stock: 100, is_active: true, images: [], features: [], benefits: [], specifications: {}, faqs: [], tax_rate: 18 })}
+          onClick={() => setEditing({ name: "", slug: "", price_paise: 49900, mrp_paise: 99900, stock: 100, is_active: true, status: "active", images: [], features: [], benefits: [], specifications: {}, faqs: [], tax_rate: 18 })}
           className="btn-primary rounded-full px-4 py-2 text-sm flex items-center gap-1"
         >
           <Plus className="h-4 w-4" /> New product
@@ -60,7 +60,7 @@ export default function AdminProducts() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="font-medium truncate">{p.name}</div>
-              <div className="text-xs text-muted-foreground">/{p.slug} • Stock {p.stock}</div>
+              <div className="text-xs text-muted-foreground">/{p.slug} • Stock {p.stock} • {(p.status ?? "active").replace("_", " ")}</div>
             </div>
             <div className="text-sm font-semibold">{formatINR(p.price_paise)}</div>
             <span className={`text-xs px-2 py-0.5 rounded-full ${p.is_active ? "bg-emerald-500/10 text-emerald-300" : "bg-white/10"}`}>{p.is_active ? "Active" : "Draft"}</span>
@@ -94,6 +94,16 @@ export default function AdminProducts() {
               <label className="sm:col-span-2">Features (one per line)
                 <textarea rows={3} className="mt-1 w-full glass rounded-xl px-3 py-2 bg-background/40" value={(editing.features ?? []).join("\n")} onChange={(e) => setEditing({ ...editing, features: e.target.value.split("\n").map((s) => s.trim()).filter(Boolean) })} />
               </label>
+              <label>Status
+                <select className="mt-1 w-full glass rounded-xl px-3 py-2 bg-background/40" value={editing.status ?? "active"} onChange={(e) => setEditing({ ...editing, status: e.target.value })}>
+                  <option value="active">Active</option>
+                  <option value="coming_soon">Coming soon</option>
+                  <option value="in_development">In development</option>
+                  <option value="draft">Draft</option>
+                </select>
+              </label>
+              <label>Product type<input className="mt-1 w-full glass rounded-xl px-3 py-2 bg-background/40" value={editing.product_type ?? ""} onChange={(e) => setEditing({ ...editing, product_type: e.target.value })} placeholder="e.g. nfc_card" /></label>
+              <label className="sm:col-span-2">CTA text<input className="mt-1 w-full glass rounded-xl px-3 py-2 bg-background/40" value={editing.cta_text ?? ""} onChange={(e) => setEditing({ ...editing, cta_text: e.target.value })} placeholder="Explore Product" /></label>
               <label className="sm:col-span-2 flex items-center gap-2"><input type="checkbox" checked={!!editing.is_active} onChange={(e) => setEditing({ ...editing, is_active: e.target.checked })} /> Active (visible in shop)</label>
             </div>
             <div className="mt-5 flex justify-end gap-2">

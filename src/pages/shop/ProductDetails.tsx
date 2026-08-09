@@ -7,6 +7,9 @@ import ProductCard, { type ProductCardData } from "@/components/shop/ProductCard
 import { supabase } from "@/integrations/supabase/client";
 import { formatINR, discountPercent } from "@/lib/format";
 import { useCart } from "@/context/CartContext";
+import StatusBadge from "@/components/shop/StatusBadge";
+import WhatsAppButton from "@/components/shop/WhatsAppButton";
+import EnquiryForm from "@/components/shop/EnquiryForm";
 
 type Faq = { q: string; a: string };
 type Product = {
@@ -30,6 +33,8 @@ type Product = {
   meta_description: string | null;
   meta_keywords: string | null;
   category_id: string | null;
+  status?: string | null;
+  cta_text?: string | null;
 };
 
 export default function ProductDetails() {
@@ -58,7 +63,7 @@ export default function ProductDetails() {
       if (data) {
         const { data: rel } = await supabase
           .from("products")
-          .select("id,name,slug,tagline,images,price_paise,mrp_paise,rating_avg,rating_count")
+          .select("id,name,slug,tagline,images,price_paise,mrp_paise,rating_avg,rating_count,status,short_description,cta_text")
           .eq("is_active", true)
           .neq("id", (data as any).id)
           .limit(4);
@@ -102,6 +107,7 @@ export default function ProductDetails() {
   }
 
   const off = discountPercent(p.mrp_paise, p.price_paise);
+  const purchasable = (p.status ?? "active") === "active" && p.price_paise > 0;
   const url = `https://vasavistores.lovable.app/products/${p.slug}`;
   const image = p.images?.[0];
 
@@ -223,31 +229,31 @@ export default function ProductDetails() {
 
           {/* Info */}
           <div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+              <StatusBadge status={p.status ?? "active"} />
               <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
               <span className="text-foreground font-medium">{p.rating_avg.toFixed(1)}</span>
               <span>({p.rating_count} reviews)</span>
-              {p.stock > 0 ? (
-                <span className="ml-2 text-emerald-400">In stock</span>
-              ) : (
-                <span className="ml-2 text-red-400">Out of stock</span>
-              )}
             </div>
             <h1 className="mt-2 text-3xl md:text-4xl font-display font-semibold">{p.name}</h1>
             {p.tagline && (
               <p className="mt-1 text-lg text-muted-foreground">{p.tagline}</p>
             )}
 
-            <div className="mt-5 flex items-baseline gap-3">
-              <span className="text-3xl font-semibold">{formatINR(p.price_paise)}</span>
-              {p.mrp_paise > p.price_paise && (
-                <>
-                  <span className="text-muted-foreground line-through">{formatINR(p.mrp_paise)}</span>
-                  <span className="text-sm text-emerald-400 font-semibold">{off}% off</span>
-                </>
-              )}
-            </div>
-            <p className="text-xs text-muted-foreground mt-1">Inclusive of all taxes • Free shipping across India</p>
+            {purchasable && (
+              <>
+                <div className="mt-5 flex items-baseline gap-3">
+                  <span className="text-3xl font-semibold">{formatINR(p.price_paise)}</span>
+                  {p.mrp_paise > p.price_paise && (
+                    <>
+                      <span className="text-muted-foreground line-through">{formatINR(p.mrp_paise)}</span>
+                      <span className="text-sm text-emerald-400 font-semibold">{off}% off</span>
+                    </>
+                  )}
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">Inclusive of all taxes • Free shipping across India</p>
+              </>
+            )}
 
             {p.short_description && (
               <p className="mt-5 text-foreground/90 leading-relaxed">{p.short_description}</p>
@@ -255,37 +261,48 @@ export default function ProductDetails() {
 
             {/* Qty + CTA */}
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <div className="glass rounded-full flex items-center">
-                <button
-                  onClick={() => setQty(Math.max(1, qty - 1))}
-                  className="px-3 py-2 hover:bg-white/10 rounded-l-full"
-                  aria-label="Decrease"
-                >
-                  −
-                </button>
-                <span className="px-4 min-w-[3ch] text-center">{qty}</span>
-                <button
-                  onClick={() => setQty(qty + 1)}
-                  className="px-3 py-2 hover:bg-white/10 rounded-r-full"
-                  aria-label="Increase"
-                >
-                  +
-                </button>
-              </div>
-              <button
-                onClick={addToCart}
-                className="rounded-full glass hover:bg-white/10 px-5 py-3 flex items-center gap-2 text-sm font-medium"
-              >
-                {added ? <Check className="h-4 w-4 text-emerald-400" /> : <ShoppingCart className="h-4 w-4" />}
-                {added ? "Added" : "Add to cart"}
-              </button>
-              <button
-                onClick={buyNow}
-                className="rounded-full btn-primary px-6 py-3 flex items-center gap-2 text-sm font-medium"
-              >
-                <Zap className="h-4 w-4" /> Buy Now
-              </button>
+              {purchasable && (
+                <>
+                  <div className="glass rounded-full flex items-center">
+                    <button
+                      onClick={() => setQty(Math.max(1, qty - 1))}
+                      className="px-3 py-2 hover:bg-white/10 rounded-l-full"
+                      aria-label="Decrease"
+                    >
+                      −
+                    </button>
+                    <span className="px-4 min-w-[3ch] text-center">{qty}</span>
+                    <button
+                      onClick={() => setQty(qty + 1)}
+                      className="px-3 py-2 hover:bg-white/10 rounded-r-full"
+                      aria-label="Increase"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <button
+                    onClick={addToCart}
+                    className="rounded-full glass hover:bg-white/10 px-5 py-3 flex items-center gap-2 text-sm font-medium"
+                  >
+                    {added ? <Check className="h-4 w-4 text-emerald-400" /> : <ShoppingCart className="h-4 w-4" />}
+                    {added ? "Added" : "Add to cart"}
+                  </button>
+                  <button
+                    onClick={buyNow}
+                    className="rounded-full btn-primary px-6 py-3 flex items-center gap-2 text-sm font-medium"
+                  >
+                    <Zap className="h-4 w-4" /> Buy Now
+                  </button>
+                </>
+              )}
+              <WhatsAppButton productName={p.name} />
             </div>
+            {!purchasable && (
+              <p className="mt-3 text-sm text-muted-foreground">
+                This product is {(p.status ?? "").replace("_", " ")}. Enquire on WhatsApp and we'll notify you the moment it launches.
+              </p>
+            )}
+
 
             {/* Trust */}
             <div className="mt-6 grid grid-cols-3 gap-2 text-xs">
@@ -402,6 +419,12 @@ export default function ProductDetails() {
           )}
         </section>
 
+        {/* Enquiry */}
+        <section className="mt-16 max-w-2xl">
+          <h2 className="text-2xl font-display font-semibold mb-4">Have a question?</h2>
+          <EnquiryForm productId={p.id} productName={p.name} />
+        </section>
+
         {/* Related */}
         {related.length > 0 && (
           <section className="mt-16">
@@ -416,14 +439,23 @@ export default function ProductDetails() {
       </div>
 
       {/* Sticky mobile buy */}
-      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 backdrop-blur-xl bg-background/80 border-t border-white/10 p-3 flex gap-2">
-        <div className="flex-1">
-          <div className="text-xs text-muted-foreground">Price</div>
-          <div className="font-semibold">{formatINR(p.price_paise)}</div>
-        </div>
-        <button onClick={addToCart} className="rounded-full glass px-4 py-2 text-sm">Add</button>
-        <button onClick={buyNow} className="rounded-full btn-primary px-4 py-2 text-sm">Buy Now</button>
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 backdrop-blur-xl bg-background/80 border-t border-white/10 p-3 flex gap-2 items-center">
+        {purchasable ? (
+          <>
+            <div className="flex-1">
+              <div className="text-xs text-muted-foreground">Price</div>
+              <div className="font-semibold">{formatINR(p.price_paise)}</div>
+            </div>
+            <button onClick={addToCart} className="rounded-full glass px-4 py-2 text-sm">Add</button>
+            <button onClick={buyNow} className="rounded-full btn-primary px-4 py-2 text-sm">Buy Now</button>
+          </>
+        ) : (
+          <div className="flex-1">
+            <WhatsAppButton productName={p.name} className="w-full justify-center" />
+          </div>
+        )}
       </div>
+
     </ShopLayout>
   );
 }

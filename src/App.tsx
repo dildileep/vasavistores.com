@@ -4,6 +4,7 @@ import { CartProvider } from "@/context/CartContext";
 
 import Landing from "./routes/index";
 import Login from "./pages/Login";
+import ResetPassword from "./pages/ResetPassword";
 
 import Shop from "./pages/shop/Shop";
 import ProductDetails from "./pages/shop/ProductDetails";
@@ -23,6 +24,7 @@ import AdminOrders from "./pages/admin/AdminOrders";
 import AdminCustomers from "./pages/admin/AdminCustomers";
 import AdminCoupons from "./pages/admin/AdminCoupons";
 import AdminMessages from "./pages/admin/AdminMessages";
+import AdminEnquiries from "./pages/admin/AdminEnquiries";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminHeatmap from "./pages/admin/AdminHeatmap";
 import AdminAICenter from "./pages/admin/AdminAICenter";
@@ -41,6 +43,9 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Login />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/admin/login" element={<Login admin />} />
 
             <Route path="/shop" element={<Shop />} />
             <Route path="/products/:slug" element={<ProductDetails />} />
@@ -60,6 +65,8 @@ export default function App() {
               <Route path="customers" element={<AdminCustomers />} />
               <Route path="coupons" element={<AdminCoupons />} />
               <Route path="messages" element={<AdminMessages />} />
+              <Route path="enquiries" element={<AdminEnquiries />} />
+              <Route path="users" element={<AdminCustomers />} />
               <Route path="analytics" element={<AdminAnalytics />} />
               <Route path="heatmap" element={<AdminHeatmap />} />
               <Route path="ai" element={<AdminAICenter />} />

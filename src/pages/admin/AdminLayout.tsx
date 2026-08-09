@@ -28,6 +28,7 @@ const navGroups: NavGroup[] = [
       { to: "/admin/products", label: "Products", icon: Package },
       { to: "/admin/orders", label: "Orders", icon: ShoppingBag },
       { to: "/admin/customers", label: "Customers", icon: Users },
+      { to: "/admin/enquiries", label: "Enquiries", icon: MessageSquare },
       { to: "/admin/payments", label: "Payments", icon: CreditCard },
       { to: "/admin/shipping", label: "Shipping", icon: Truck },
       { to: "/admin/coupons", label: "Coupons", icon: Tag },
@@ -133,7 +134,7 @@ export default function AdminLayout() {
 
   useEffect(() => {
     if (loading) return;
-    if (!user) { nav("/login?redirect=/admin", { replace: true }); return; }
+    if (!user) { nav("/admin/login?redirect=/admin", { replace: true }); return; }
     checkIsAdmin(user.id).then(setIsAdmin);
   }, [user, loading, nav]);
 
@@ -162,7 +163,7 @@ export default function AdminLayout() {
           <div className="flex gap-2 justify-center pt-2">
             <Link to="/" className="text-sm px-4 py-2 rounded-full glass hover:bg-white/10 transition-colors">Home</Link>
             <button
-              onClick={async () => { await supabase.auth.signOut(); nav("/login"); }}
+              onClick={async () => { await supabase.auth.signOut(); nav("/admin/login"); }}
               className="text-sm px-4 py-2 rounded-full btn-primary"
             >
               Sign out
